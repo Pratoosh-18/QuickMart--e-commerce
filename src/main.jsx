@@ -6,15 +6,22 @@ import { BrowserRouter} from "react-router-dom";
 import { ToastContainer } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import "./index.css";
+import { Auth0Provider } from '@auth0/auth0-react';
   
 
 ReactDOM.createRoot(document.getElementById("root")).render(
-  <React.StrictMode>
+  <Auth0Provider
+    domain="dev-6mmhgbzp21t030bz.us.auth0.com"
+    clientId="QeannnsMj1xuf2tbYZ2xUZEeDcgGiggm"
+    authorizationParams={{
+      redirect_uri: window.location.origin
+    }}
+  >
     <BrowserRouter>
       <ProductContextProvider>
         <App />
         <ToastContainer/>
       </ProductContextProvider>
     </BrowserRouter>
-  </React.StrictMode>
+    </Auth0Provider>
 );

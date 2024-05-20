@@ -1,12 +1,16 @@
 import React, { useState } from "react";
 import { assets } from "../assets/all_product";
 import { Link } from "react-router-dom";
+import { useAuth0 } from "@auth0/auth0-react";
 
 const Navbar = () => {
   const [navCategory, setNavCategory] = useState("Shop");
+  const { loginWithRedirect,logout, user, isAuthenticated  } = useAuth0();
 
   return (
-    <div className="w-full h-16 md:h-20 flex justify-around items-center">
+    <div>
+      
+    <div className="w-full h-16 md:h-20 flex justify-around items-center border-b-2">
       <Link to={"/"} onClick={() => setNavCategory("Shop")} className="flex items-center gap-2">
         <div>
           <img
@@ -54,13 +58,20 @@ const Navbar = () => {
 
       <div className="flex items-center gap-2 md:gap-4 lg:gap-8 lg:text-lg">
         <div>
-          <Link
-            to={"/login"}
-            className="px-2 py-1 text-sm sm:text-base border-2 border-black sm:px-4 sm:py-1 md:px-8 md:py-2 rounded-full"
-            onClick={() => setNavCategory("none")}
+          {
+            isAuthenticated?
+          <div className="px-2 py-1 text-sm sm:text-base border-2 border-black sm:px-4 sm:py-1 md:px-8 md:py-2 rounded-full hover:cursor-pointer"
+            onClick={() => logout({ logoutParams: { returnTo: window.location.origin } })}
           >
-            Login
-          </Link>
+            Logout
+          </div>
+          :
+            <div className="px-2 py-1 text-sm sm:text-base border-2 border-black sm:px-4 sm:py-1 md:px-8 md:py-2 rounded-full hover:cursor-pointer"
+            onClick={() => loginWithRedirect()}
+          >Login
+          </div>
+          }
+          
         </div>
         <Link
           to="/cart"
@@ -75,6 +86,13 @@ const Navbar = () => {
           )}{" "}
         </Link>
       </div>
+    </div>
+    {
+      isAuthenticated && navCategory === "Shop" && <div className="flex w-100 h-auto px-4  md:px-10  lg:px-24 text-sm sm:text-base py-2 sm:py-5 lg:text-xl">
+      Hey {user.name}!  We got some great deals for you today !
+    </div>
+    }
+    
     </div>
   );
 };

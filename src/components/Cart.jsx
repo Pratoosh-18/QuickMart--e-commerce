@@ -2,8 +2,10 @@ import React, { useContext, useEffect, useState } from "react";
 import { ProductContext } from "../context/ProductContext";
 import CartCard from "./CartCard";
 import { Link } from "react-router-dom";
+import { useAuth0 } from "@auth0/auth0-react";
 
 const Cart = () => {
+  const { user, isAuthenticated, isLoading } = useAuth0();
   const { all_product, cartItems } = useContext(ProductContext);
   let p = 0;
 
@@ -20,7 +22,10 @@ const Cart = () => {
     <div className="py-10 flex w-full flex-col-reverse lg:flex-row justify-center gap-4 lg:px-15 px-5 bg-[#EAEDED]">
       <div className="flex flex-col">
         <div className="hidden sm:block bg-white px-4 pt-6 text-2xl border-b-gray-200 border-b-2 rounded-lg">
-          <div className="pb-2">
+          <div className="pb-2 flex gap-2">
+            {
+              isAuthenticated && <p>{user.name}'s</p>
+            }
             Shopping Cart
             </div>
           <div className="flex justify-end text-sm font-semibold">

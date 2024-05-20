@@ -7,7 +7,6 @@ import KidsPage from "./components/KidsPage";
 import Cart from "./components/Cart";
 import ProductPage from "./components/ProductPage";
 import Footer from "./components/Footer";
-import Login from "./components/Login";
 import OrderCompletedpage from "./components/OrderCompletedpage";
 
 function App() {
@@ -20,7 +19,6 @@ function App() {
         <Route path="/men" element={<MenPage/>}/>
         <Route path="/kids" element={<KidsPage/>}/>
         <Route path="/cart" element={<Cart/>}/>
-        <Route path="/login" element={<Login/>}/>
         <Route path="/order" element={<OrderCompletedpage/>}/>
         <Route path="/product" element={<ProductPage/>}>
           <Route path=":productId" element={<ProductPage/>}/>
